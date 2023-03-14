@@ -7,7 +7,7 @@ type AutocompleteProps = {
 
 type IResultItem = {
   userName: string;
-  repoName: string;
+  repoName?: string;
   url: string;
   type: string;
 };
@@ -17,7 +17,7 @@ interface ICardDisplayProps {
   index: number;
 }
 
-const CardDisplay = ({
+export const CardDisplay = ({
   item: { url, type, userName, repoName },
   selectedIndex,
   index,
@@ -37,6 +37,8 @@ const CardDisplay = ({
         backgroundColor: index === selectedIndex ? "#91A7FF" : "#74C0FC",
       }}
       onClick={() => window.open(url, "_blank")}
+      id="card"
+      data-testid="card"
     >
       {type === "user" ? (
         <Users size={20} strokeWidth={1.5} color="white" />
@@ -90,7 +92,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ placeholder }) => {
           const response = await fetch(`http://localhost:8083/${val}`);
           const data = await response.json();
           setSelectedIndex(0);
-          setResults(data);
+          setResults([...data]);
         } catch (error) {
           console.error(error);
         }

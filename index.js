@@ -50,7 +50,7 @@ app.get("/:searchValue", async (req, res) => {
       {
         headers: {
           Accept: "application/vnd.github.v3.text-match+json",
-          Authorization: "Bearer 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",
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
           "X-GitHub-Api-Version": "2022-11-28",
         },
       }
@@ -78,6 +78,8 @@ app.get("/:searchValue", async (req, res) => {
       } else if (a.userName && b.userName) {
         return a.userName.localeCompare(b.userName);
       }
+
+      return 0;
     });
 
     return res.json(resultData);
