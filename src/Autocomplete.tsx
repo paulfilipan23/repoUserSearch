@@ -85,7 +85,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ placeholder }) => {
     window.clearTimeout(timeoutRef.current);
     setSearchTerm(val);
     timeoutRef.current = window.setTimeout(async () => {
-      if (searchTerm.length >= 3) {
+      if (val.length >= 3) {
         setIsLoading(true);
 
         try {
